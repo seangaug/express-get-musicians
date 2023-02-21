@@ -5,12 +5,18 @@ const {sequelize} = require("./db")
 
 const port = 3000;
 
-// create a new endpoint for when the browser makes a `GET` request to http://localhost:3000/musicians.
-app.get("/musicians", async (req, res) => {
-    // The endpoint will need to fetch these musicians from the database
-    const musicians = await Musician.findAll();
-    // Send the musicians as a JSON Response
-    res.json(musicians);
+// // create a new endpoint for when the browser makes a `GET` request to http://localhost:3000/musicians.
+// app.get("/musicians", async (req, res) => {
+//     // The endpoint will need to fetch these musicians from the database
+//     const musicians = await Musician.findAll();
+//     // Send the musicians as a JSON Response
+//     res.json(musicians);
+// })
+
+// Part 2: Route Parameters
+app.get("/musicians/:id", async (req, res) => {
+    const musician = await Musician.findByPk(req.params.id);
+    res.json(musician);
 })
 
 app.listen(port, () => {
